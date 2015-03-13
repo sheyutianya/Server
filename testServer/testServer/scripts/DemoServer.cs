@@ -1,4 +1,6 @@
 ﻿////using UnityEngine;
+
+using System;
 using System.Collections;
 using System.Diagnostics;
 using System.Threading;
@@ -320,8 +322,10 @@ namespace ChuMeng
 
 		public void run() {
 			//Debug.Log ("Start Demo Server");
+            Console.WriteLine("Start Demo Server");
 			byte[] buffer = new byte[1024];
 			while (true) {
+                Console.WriteLine("sendThread");
 				var connect = socket.Accept();
 				con = new MyCon(connect);
 				var sendThread = new Thread(new ThreadStart(SendThread));
@@ -332,6 +336,7 @@ namespace ChuMeng
 				}
 
 				while(true) {
+                    Console.WriteLine("ReadThread");
 					int num = connect.Receive(buffer);
 					if(num > 0) {
 						msgReader.process(buffer, (uint)num);

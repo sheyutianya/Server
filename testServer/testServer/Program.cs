@@ -10,6 +10,7 @@ namespace testServer
     {
         static void Main(string[] args)
         {
+            var s = new ChuMeng.DemoServer();
         }
     }
 }
