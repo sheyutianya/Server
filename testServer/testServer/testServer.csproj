@@ -1,0 +1,106 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{C80E92E3-1011-4E25-AF12-93D6FE552C5A}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>testServer</RootNamespace>
+    <AssemblyName>testServer</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Google.ProtocolBuffersLite, Version=0.9.0.0, Culture=neutral, PublicKeyToken=17b3b1f090c3ea48, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>tools\Google.ProtocolBuffersLite.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="scripts\DemoServer.cs" />
+    <Compile Include="scripts\network\Bundle.cs" />
+    <Compile Include="scripts\network\ClientApp.cs" />
+    <Compile Include="scripts\network\DataTypes.cs" />
+    <Compile Include="scripts\network\Dbg.cs" />
+    <Compile Include="scripts\network\Entity.cs" />
+    <Compile Include="scripts\network\EntityDef.cs" />
+    <Compile Include="scripts\network\Event.cs" />
+    <Compile Include="scripts\network\KBEngine.cs" />
+    <Compile Include="scripts\network\Mailbox.cs" />
+    <Compile Include="scripts\network\Math.cs" />
+    <Compile Include="scripts\network\MemoryStream.cs" />
+    <Compile Include="scripts\network\Message.cs" />
+    <Compile Include="scripts\network\MessageReader.cs" />
+    <Compile Include="scripts\network\Method.cs" />
+    <Compile Include="scripts\network\NetworkInterface.cs" />
+    <Compile Include="scripts\network\NetworkPeer.cs" />
+    <Compile Include="scripts\network\Packet.cs" />
+    <Compile Include="scripts\network\PlayerSync.cs" />
+    <Compile Include="scripts\network\Property.cs" />
+    <Compile Include="scripts\network\ScriptModule.cs" />
+    <Compile Include="scripts\network\StreamRWBinder.cs" />
+    <Compile Include="scripts\network\Types.cs" />
+    <Compile Include="scripts\ServerBundle.cs" />
+    <Compile Include="scripts\ServerMsgReader.cs" />
+    <Compile Include="scripts\utils\AnimateTexture.cs" />
+    <Compile Include="scripts\utils\AstarPlayerStarExport.cs" />
+    <Compile Include="scripts\utils\CameraController.cs" />
+    <Compile Include="scripts\utils\DebugPanel.cs" />
+    <Compile Include="scripts\utils\NetDebug.cs" />
+    <Compile Include="scripts\utils\PlaneCollision.cs" />
+    <Compile Include="scripts\utils\RemoveParticle.cs" />
+    <Compile Include="scripts\utils\RemoveSelf.cs" />
+    <Compile Include="scripts\utils\ResetPosition.cs" />
+    <Compile Include="scripts\utils\SetCamPos.cs" />
+    <Compile Include="scripts\utils\SetLightMap.cs" />
+    <Compile Include="scripts\utils\ShaderResource.cs" />
+    <Compile Include="scripts\utils\StringInjectExtension.cs" />
+    <Compile Include="scripts\utils\Util.cs" />
+    <Compile Include="scripts\utils\Util2.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <Content Include="tools\Google.ProtocolBuffersLite.dll" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
