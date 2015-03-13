@@ -33,7 +33,7 @@ namespace KBEngine
 		
 		public Mailbox()
 		{
-			networkInterface_ = KBEngineApp.app.networkInterface();
+			//networkInterface_ = KBEngineApp.app.networkInterface();
 		}
 		
 		public virtual void __init__()

@@ -10,7 +10,6 @@ Email: 233242872@qq.com
 */
 
 using System.Diagnostics;
-using System.Net.NetworkInformation;
 using Google.ProtocolBuffers;
 
 namespace KBEngine
@@ -152,22 +151,22 @@ namespace KBEngine
 			//Debug.LogError ("Bundle::send networkInterface not used");
 		}
 
-		public void send(NetworkInterface networkInterface, ServerMsgReader.MessageHandler handler, uint fId) {
+		public void send(NetworkInterface networkInterface, MessageHandler handler, uint fId) {
 			//Debug.Log("send Message "+networkInterface+" "+fId);
 			fini (true);
 			//Debug.Log ("message Number " + streamList.Count);
-            //if(networkInterface.valid())
-            //{
-            //    for(int i=0; i<streamList.Count; i++)
-            //    {
-            //        stream = streamList[i];
-            //        networkInterface.send(stream.getbuffer(), handler, fId);
-            //    }
-            //}
-            //else
-            //{
-            //    //Dbg.ERROR_MSG("Bundle::send: networkInterface invalid!");  
-            //}
+			if(networkInterface.valid())
+			{
+				for(int i=0; i<streamList.Count; i++)
+				{
+					stream = streamList[i];
+					networkInterface.send(stream.getbuffer(), handler, fId);
+				}
+			}
+			else
+			{
+				Dbg.ERROR_MSG("Bundle::send: networkInterface invalid!");  
+			}
 			
 			streamList.Clear();
 			stream = new MemoryStream();
@@ -177,21 +176,21 @@ namespace KBEngine
 			fini (true);
 			//Debug.Log ("message Number " + streamList.Count);
 			bool resp = false;
-            //if(networkInterface.valid())
-            //{
-            //    for(int i=0; i<streamList.Count; i++)
-            //    {
-            //        stream = streamList[i];
-            //        networkInterface.send(stream.getbuffer(), delegate(Packet p) {
-            //            par.packet = p;
-            //            resp = true;
-            //        }, fId);
-            //    }
-            //}
-            //else
-            //{
-            //    //Dbg.ERROR_MSG("Bundle::send: networkInterface invalid!");  
-            //}
+			if(networkInterface.valid())
+			{
+				for(int i=0; i<streamList.Count; i++)
+				{
+					stream = streamList[i];
+					networkInterface.send(stream.getbuffer(), delegate(Packet p) {
+						par.packet = p;
+						resp = true;
+					}, fId);
+				}
+			}
+			else
+			{
+				Dbg.ERROR_MSG("Bundle::send: networkInterface invalid!");  
+			}
 			
 			streamList.Clear();
 			stream = new MemoryStream();
@@ -205,21 +204,21 @@ namespace KBEngine
 			fini (true);
 			//Debug.Log ("message Number " + streamList.Count);
 			bool resp = false;
-            //if(networkInterface.valid())
-            //{
-            //    for(int i=0; i<streamList.Count; i++)
-            //    {
-            //        //stream = streamList[i];
-            //        //networkInterface.send(stream.getbuffer(), delegate(Packet p) {
-            //        //    //par.packet = p;
-            //        //    resp = true;
-            //        //}, fId);
-            //    }
-            //}
-            //else
-            //{
-            //    //Dbg.ERROR_MSG("Bundle::send: networkInterface invalid!");  
-            //}
+			if(networkInterface.valid())
+			{
+				for(int i=0; i<streamList.Count; i++)
+				{
+					stream = streamList[i];
+					networkInterface.send(stream.getbuffer(), delegate(Packet p) {
+						//par.packet = p;
+						resp = true;
+					}, fId);
+				}
+			}
+			else
+			{
+				Dbg.ERROR_MSG("Bundle::send: networkInterface invalid!");  
+			}
 			
 			streamList.Clear();
 			stream = new MemoryStream();

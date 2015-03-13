@@ -41,7 +41,7 @@ namespace ChuMeng {
 		}
 		
 		public void process(byte[] datas, MessageLength length) {
-			Debug.Log ("process receive Data " + length+" state "+state);
+			//Debug.Log ("process receive Data " + length+" state "+state);
 			MessageLength totallen = 0;
 			while (length > 0 && expectSize > 0) {
 				if(state == READ_STATE.READ_STATE_FLAG) {//1
@@ -180,8 +180,8 @@ namespace ChuMeng {
 			}
 
 			
-			Debug.Log("server state after "+state+" msglen "+msglen+" "+length);
-			Debug.Log(" server MessageReader::  prop  flag" + flag + "  msglen " + msglen + " flowId " + flowId + " moduleId " + moduleId + " msgid " + msgid + " responseTime " + 0 + " responseFlag " + 0 + " expectSize " + expectSize);
+			//Debug.Log("server state after "+state+" msglen "+msglen+" "+length);
+			//Debug.Log(" server MessageReader::  prop  flag" + flag + "  msglen " + msglen + " flowId " + flowId + " moduleId " + moduleId + " msgid " + msgid + " responseTime " + 0 + " responseFlag " + 0 + " expectSize " + expectSize);
 		}
 	}
 

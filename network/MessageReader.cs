@@ -8,8 +8,6 @@ Email: 233242872@qq.com
 Author: liyonghelpme
 Email: 233242872@qq.com
 */
-
-using System.Diagnostics;
 using ChuMeng;
 using Google.ProtocolBuffers;
 
@@ -49,7 +47,7 @@ namespace KBEngine
 		uint responseTime;
 		short responseFlag;
 
-		public ServerMsgReader.MessageHandler msgHandle = null;
+		public MessageHandler msgHandle = null;
 		/*
 		 * Response Packet Format
 		 * 
@@ -72,8 +70,8 @@ namespace KBEngine
 			state = READ_STATE.READ_STATE_FLAG;
 		}
 
-		public void process(byte[] datas, MessageLength length, Dictionary<uint, ServerMsgReader.MessageHandler> flowHandler) {
-			//Debug.Log ("process receive Data " + length+" state "+state);
+		public void process(byte[] datas, MessageLength length, Dictionary<uint, MessageHandler> flowHandler) {
+			Debug.Log ("process receive Data " + length+" state "+state);
 			MessageLength totallen = 0;
 			while (length > 0 && expectSize > 0) {
 				if(state == READ_STATE.READ_STATE_FLAG) {
@@ -224,7 +222,7 @@ namespace KBEngine
 						 * PacketHandler namespace
 						 * IPacketHandler---->GCPushSpriteInfo
 						 */ 
-						ServerMsgReader.MessageHandler handler = null;
+						MessageHandler handler = null;
 						if(flowHandler == null) {
 							handler = msgHandle;
 						} else if(flowHandler.ContainsKey(flowId)) {
@@ -244,29 +242,29 @@ namespace KBEngine
 						}
 
 						if(fullName.Contains("Push")) {
-							//Debug.Log("MessageReader Handler PushMessage");
-                            //KBEngineApp.app.queueInLoop(delegate{
-                            //    var handlerName = fullName.Replace("ChuMeng", "PacketHandler");
-                            //    var tp = Type.GetType(handlerName);
-                            //    if(tp == null) {
-                            //        //Dbg.ERROR_MSG("PushMessage noHandler "+handlerName);
-                            //    }else {
-                            //        //Debug.Log("Handler Push Message here "+handlerName);
-                            //        //var ph = (PacketHandler.IPacketHandler)Activator.CreateInstance(tp);
-                            //        //ph.HandlePacket(p);
-                            //    }
+							Debug.Log("MessageReader Handler PushMessage");
+							KBEngineApp.app.queueInLoop(delegate{
+								var handlerName = fullName.Replace("ChuMeng", "PacketHandler");
+								var tp = Type.GetType(handlerName);
+								if(tp == null) {
+									Dbg.ERROR_MSG("PushMessage noHandler "+handlerName);
+								}else {
+									//Debug.Log("Handler Push Message here "+handlerName);
+									var ph = (PacketHandler.IPacketHandler)Activator.CreateInstance(tp);
+									ph.HandlePacket(p);
+								}
 
-                            //});
+							});
 						}else if(flowHandler == null) {
 							handler(p);
 						}else if(handler != null) {
-                            //KBEngineApp.app.queueInLoop (delegate() {
-                            //    handler (p);
-                            //});
+							KBEngineApp.app.queueInLoop (delegate() {
+								handler (p);
+							});
 
 						}else {
 							//flowHandler.Remove(flowId);
-							//Dbg.ERROR_MSG("MessageReader::process No handler for flow Message "+msgid+" "+flowId+" "+pbmsg.GetType()+" "+pbmsg);
+							Dbg.ERROR_MSG("MessageReader::process No handler for flow Message "+msgid+" "+flowId+" "+pbmsg.GetType()+" "+pbmsg);
 						}
 
 
@@ -286,11 +284,11 @@ namespace KBEngine
 			}
 
 			if (responseFlag != 0) {
-				//Debug.LogError("MessageReader:: read Error Packet "+responseFlag);
+				Debug.LogError("MessageReader:: read Error Packet "+responseFlag);
 			}
 
-			//Debug.Log ("current state after "+state+" msglen "+msglen+" "+length);
-			//Debug.Log ("MessageReader::  prop  flag" + flag + "  msglen " + msglen + " flowId " + flowId + " moduleId " + moduleId + " msgid " + msgid + " responseTime " + responseTime + " responseFlag " + responseFlag + " expectSize " + expectSize);
+			Debug.Log ("current state after "+state+" msglen "+msglen+" "+length);
+			Debug.Log ("MessageReader::  prop  flag" + flag + "  msglen " + msglen + " flowId " + flowId + " moduleId " + moduleId + " msgid " + msgid + " responseTime " + responseTime + " responseFlag " + responseFlag + " expectSize " + expectSize);
 		}
 		
     }

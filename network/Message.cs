@@ -46,7 +46,7 @@ namespace KBEngine
 		}
 
 		//Message name
-		public Message(ServerMsgReader.MessageHandler mh) {
+		public Message(MessageHandler mh) {
 			id = 0;
 			name = null;
 			msglen = 0;
@@ -80,7 +80,7 @@ namespace KBEngine
 				argtypes[i] = StreamRWBinder.bindReader(msgargtypes[i]);
 				if(argtypes[i] == null)
 				{
-					//Dbg.ERROR_MSG("Message::Message(): bindReader(" + msgargtypes[i] + ") is error!");
+					Dbg.ERROR_MSG("Message::Message(): bindReader(" + msgargtypes[i] + ") is error!");
 				}
 			}
 			

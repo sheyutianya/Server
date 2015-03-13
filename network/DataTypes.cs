@@ -256,86 +256,86 @@ namespace KBEngine
 		}
 	}
 	
-	public class KBEDATATYPE_VECTOR2 : KBEDATATYPE_BASE
-	{
-		public override object createFromStream(MemoryStream stream)
-		{
-			UInt32 size = stream.readUint32();
-			if(2 != size)
-			{
-				Dbg.ERROR_MSG(string.Format("KBEDATATYPE_VECTOR2::createFromStream: size({0}) is error!", size));
-			}
+    //public class KBEDATATYPE_VECTOR2 : KBEDATATYPE_BASE
+    //{
+    //    public override object createFromStream(MemoryStream stream)
+    //    {
+    //        UInt32 size = stream.readUint32();
+    //        if(2 != size)
+    //        {
+    //            Dbg.ERROR_MSG(string.Format("KBEDATATYPE_VECTOR2::createFromStream: size({0}) is error!", size));
+    //        }
 			
-			return new Vector2(stream.readFloat(), stream.readFloat());
-		}
+    //        return new Vector2(stream.readFloat(), stream.readFloat());
+    //    }
 		
-		public override void addToStream(Bundle stream, object v)
-		{
-			stream.writeUint32(2);
-			stream.writeFloat(((Vector2)v).x);
-			stream.writeFloat(((Vector2)v).y);
-		}
+    //    public override void addToStream(Bundle stream, object v)
+    //    {
+    //        stream.writeUint32(2);
+    //        stream.writeFloat(((Vector2)v).x);
+    //        stream.writeFloat(((Vector2)v).y);
+    //    }
 		
-		public override object parseDefaultValStr(string v)
-		{
-			return new Vector2(0.0f, 0.0f);
-		}
-	}
+    //    public override object parseDefaultValStr(string v)
+    //    {
+    //        return new Vector2(0.0f, 0.0f);
+    //    }
+    //}
 	
-	public class KBEDATATYPE_VECTOR3 : KBEDATATYPE_BASE
-	{
-		public override object createFromStream(MemoryStream stream)
-		{
-			UInt32 size = stream.readUint32();
-			if(3 != size)
-			{
-				Dbg.ERROR_MSG(string.Format("KBEDATATYPE_VECTOR3::createFromStream: size({0}) is error!", size));
-			}
+    //public class KBEDATATYPE_VECTOR3 : KBEDATATYPE_BASE
+    //{
+    //    public override object createFromStream(MemoryStream stream)
+    //    {
+    //        UInt32 size = stream.readUint32();
+    //        if(3 != size)
+    //        {
+    //            Dbg.ERROR_MSG(string.Format("KBEDATATYPE_VECTOR3::createFromStream: size({0}) is error!", size));
+    //        }
 			
-			return new Vector3(stream.readFloat(), stream.readFloat(), stream.readFloat());
-		}
+    //        return new Vector3(stream.readFloat(), stream.readFloat(), stream.readFloat());
+    //    }
 		
-		public override void addToStream(Bundle stream, object v)
-		{
-			stream.writeUint32(3);
-			stream.writeFloat(((Vector3)v).x);
-			stream.writeFloat(((Vector3)v).y);
-			stream.writeFloat(((Vector3)v).z);
-		}
+    //    public override void addToStream(Bundle stream, object v)
+    //    {
+    //        stream.writeUint32(3);
+    //        stream.writeFloat(((Vector3)v).x);
+    //        stream.writeFloat(((Vector3)v).y);
+    //        stream.writeFloat(((Vector3)v).z);
+    //    }
 		
-		public override object parseDefaultValStr(string v)
-		{
-			return new Vector3(0.0f, 0.0f, 0.0f);
-		}
-	}
+    //    public override object parseDefaultValStr(string v)
+    //    {
+    //        return new Vector3(0.0f, 0.0f, 0.0f);
+    //    }
+    //}
 	
-	public class KBEDATATYPE_VECTOR4 : KBEDATATYPE_BASE
-	{
-		public override object createFromStream(MemoryStream stream)
-		{
-			UInt32 size = stream.readUint32();
-			if(4 != size)
-			{
-				Dbg.ERROR_MSG(string.Format("KBEDATATYPE_VECTOR4::createFromStream: size({0}) is error!", size));
-			}
+    //public class KBEDATATYPE_VECTOR4 : KBEDATATYPE_BASE
+    //{
+    //    public override object createFromStream(MemoryStream stream)
+    //    {
+    //        UInt32 size = stream.readUint32();
+    //        if(4 != size)
+    //        {
+    //            Dbg.ERROR_MSG(string.Format("KBEDATATYPE_VECTOR4::createFromStream: size({0}) is error!", size));
+    //        }
 			
-			return new Vector4(stream.readFloat(), stream.readFloat(), stream.readFloat(), stream.readFloat());
-		}
+    //        return new Vector4(stream.readFloat(), stream.readFloat(), stream.readFloat(), stream.readFloat());
+    //    }
 		
-		public override void addToStream(Bundle stream, object v)
-		{
-			stream.writeUint32(4);
-			stream.writeFloat(((Vector4)v).x);
-			stream.writeFloat(((Vector4)v).y);
-			stream.writeFloat(((Vector4)v).z);
-			stream.writeFloat(((Vector4)v).w);
-		}
+    //    public override void addToStream(Bundle stream, object v)
+    //    {
+    //        stream.writeUint32(4);
+    //        stream.writeFloat(((Vector4)v).x);
+    //        stream.writeFloat(((Vector4)v).y);
+    //        stream.writeFloat(((Vector4)v).z);
+    //        stream.writeFloat(((Vector4)v).w);
+    //    }
 		
-		public override object parseDefaultValStr(string v)
-		{
-			return new Vector4(0.0f, 0.0f, 0.0f, 0.0f);
-		}
-	}
+    //    public override object parseDefaultValStr(string v)
+    //    {
+    //        return new Vector4(0.0f, 0.0f, 0.0f, 0.0f);
+    //    }
+    //}
 	
 	public class KBEDATATYPE_PYTHON : KBEDATATYPE_BASE
 	{

@@ -59,9 +59,9 @@ namespace KBEngine
 			datatypes["DOUBLE"] = new KBEDATATYPE_DOUBLE();
 			
 			datatypes["STRING"] = new KBEDATATYPE_STRING();
-			datatypes["VECTOR2"] = new KBEDATATYPE_VECTOR2();
-			datatypes["VECTOR3"] = new KBEDATATYPE_VECTOR3();
-			datatypes["VECTOR4"] = new KBEDATATYPE_VECTOR4();
+			//datatypes["VECTOR2"] = new KBEDATATYPE_VECTOR2();
+			//datatypes["VECTOR3"] = new KBEDATATYPE_VECTOR3();
+			//datatypes["VECTOR4"] = new KBEDATATYPE_VECTOR4();
 			datatypes["PYTHON"] = new KBEDATATYPE_PYTHON();
 			datatypes["UNICODE"] = new KBEDATATYPE_UNICODE();
 			datatypes["MAILBOX"] = new KBEDATATYPE_MAILBOX();

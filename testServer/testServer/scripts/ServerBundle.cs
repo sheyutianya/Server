@@ -17,9 +17,9 @@ namespace ChuMeng
 
 		void newMessage(System.Type type) {
 			//Debug.Log ("ServerBundle:: 开始发送消息 Message is " + type.Name);
-			var pa = Util.GetMsgID (type.Name);
-			moduleId = pa.moduleId;
-			msgId = pa.messageId;
+			//var pa = Util.GetMsgID (type.Name);
+			//moduleId = pa.moduleId;
+			//msgId = pa.messageId;
 			
 			msgtype = null;
 		}

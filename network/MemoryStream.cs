@@ -282,7 +282,7 @@ namespace KBEngine
 			UInt32 size = (UInt32)v.Length;
 			if(size > fillfree())
 			{
-				//Dbg.ERROR_MSG("memorystream::writeBlob: no free!");
+				Dbg.ERROR_MSG("memorystream::writeBlob: no free!");
 				return;
 			}
 			
@@ -299,7 +299,7 @@ namespace KBEngine
 			UInt32 size = (UInt32)v.Length;
 			if(size + 4 > fillfree())
 			{
-				//Dbg.ERROR_MSG("memorystream::writeBlob: no free!");
+				Dbg.ERROR_MSG("memorystream::writeBlob: no free!");
 				return;
 			}
 			
@@ -315,7 +315,7 @@ namespace KBEngine
 		{
 			if(v.Length > fillfree())
 			{
-				//Dbg.ERROR_MSG("memorystream::writeString: no free!");
+				Dbg.ERROR_MSG("memorystream::writeString: no free!");
 				return;
 			}
 
