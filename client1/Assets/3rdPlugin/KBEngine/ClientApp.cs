@@ -125,8 +125,8 @@ public class ClientApp : UnityEngine.MonoBehaviour {
         //bundle.newMessage (data.GetType ());
         //var fid = bundle.writePB (data);
         //yield return StartCoroutine (bundle.sendCoroutine(KBEngineApp.app.networkInterface(), fid, packet));
-	    bundle.sendCoroutine(KBEngineApp.app.networkInterface(), 1, packet);
-
+	    StartCoroutine(bundle.sendCoroutine(KBEngineApp.app.networkInterface(), 1, packet));
+	    Debug.Log("sssssssssssssss");
 
 	}
 

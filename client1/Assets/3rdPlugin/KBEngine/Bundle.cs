@@ -150,8 +150,12 @@ namespace KBEngine
 		}
 
 		public void send(NetworkInterface networkInterface, MessageHandler handler, uint fId) {
-			Debug.Log("send Message "+networkInterface+" "+fId);
+			//Debug.Log("send Message "+networkInterface+" "+fId);
 			fini (true);
+
+            //stream.writePB(new byte[1]);
+            streamList.Add(stream);
+
 			Debug.Log ("message Number " + streamList.Count);
 			if(networkInterface.valid())
 			{
@@ -171,7 +175,11 @@ namespace KBEngine
 		}
 
 		public IEnumerator sendCoroutine(NetworkInterface networkInterface, uint fId, PacketHolder par) {
-			fini (true);
+            //Debug.Log("message Number 2222222222222222 ");
+            fini (true);
+            byte[] byteArray = System.Text.Encoding.Default.GetBytes("sssssssssssss");
+            stream.writePB(byteArray);
+            streamList.Add(stream);
 			Debug.Log ("message Number " + streamList.Count);
 			bool resp = false;
 			if(networkInterface.valid())

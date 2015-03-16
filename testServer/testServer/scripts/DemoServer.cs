@@ -328,9 +328,12 @@ namespace ChuMeng
                 MyCon con = (MyCon)pobj;
                 byte[] buffer = new byte[1024];
                 int num = con.connect.Receive(buffer);
+                Console.WriteLine("ss:" + num);
                 if (num > 0)
                 {
                     Console.WriteLine("receive" + buffer);
+                    //buffer = new byte[1024];
+                    msgReader.process(buffer, (uint)num);
                 }
             }
 	    }
