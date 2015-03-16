@@ -26,20 +26,25 @@ Thumbs.db
 *.tlog
 *.idb
 
+*.opensdf
+*.tlog
+*.idb
+
+*.sbr
+*.sdf
+
 [Bb]in
 #[Dd]ebug/
 [Dd]ebug.win32/
-*.sbr
-*.sdf
+
 obj/
 [Rr]elease/
 [Rr]elease.win32/
 _ReSharper*/
 [Tt]est[Rr]esult*
 ipch/
-*.opensdf
-*.tlog
-*.idb
+client/Library
+
 
 
 
