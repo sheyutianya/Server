@@ -320,30 +320,52 @@ namespace ChuMeng
 			}
 		}
 
-		public void run() {
+	    private void ReceiveThread(object pobj)
+	    {
+            while (true)
+            {
+                Console.WriteLine("ReceiveThread");
+                MyCon con = (MyCon)pobj;
+                byte[] buffer = new byte[1024];
+                int num = con.connect.Receive(buffer);
+                if (num > 0)
+                {
+                    Console.WriteLine("receive" + buffer);
+                }
+            }
+	    }
+
+	    public void run() {
 			//Debug.Log ("Start Demo Server");
             Console.WriteLine("Start Demo Server");
 			byte[] buffer = new byte[1024];
 			while (true) {
-                Console.WriteLine("sendThread");
+                //Console.WriteLine("sendThread");
 				var connect = socket.Accept();
 				con = new MyCon(connect);
-				var sendThread = new Thread(new ThreadStart(SendThread));
-				sendThread.Start();
+			    var receiveThread = new Thread(new ParameterizedThreadStart(ReceiveThread));
+                receiveThread.Start(con);
 
-				lock (msgBuffer) {
-					msgBuffer.Clear();
-				}
+			    //var sendThread = new Thread(new ThreadStart(SendThread));
+			    //sendThread.Start();
 
-				while(true) {
-                    Console.WriteLine("ReadThread");
-					int num = connect.Receive(buffer);
-					if(num > 0) {
-						msgReader.process(buffer, (uint)num);
-					}else {
+			    //lock (msgBuffer) {
+			    //    msgBuffer.Clear();
+			    //}
 
-					}
-				}
+			    //while (true)
+			    //{
+			    //    Console.WriteLine("ReadThread");
+			    //    int num = connect.Receive(buffer);
+			    //    if (num > 0)
+			    //    {
+			    //        msgReader.process(buffer, (uint)num);
+			    //    }
+			    //    else
+			    //    {
+
+			    //    }
+			    //}
 			}
 
 		}

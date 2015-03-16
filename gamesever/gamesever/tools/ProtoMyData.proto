@@ -1,4 +1,0 @@
-message MyData {
-	//¸öÈË¼ò½é
-	optional string resume = 1[default="I'm goodman"];
-}

@@ -1,6 +1,0 @@
-message MyResponse {
-	//版本号
-	required int32 version = 1;
-	//响应结果
-	required int32 result = 2;
-}
