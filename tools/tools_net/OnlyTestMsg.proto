@@ -1,0 +1,16 @@
+package com.road.pitaya.proto;
+
+option java_package = "com.road.pitaya.pb";
+
+option java_outer_classname = "OnlyTestProto";
+
+//测试专用
+message TestMsg
+{
+	required int32 f1 = 1;
+//	required float f2 = 2;
+//	required double f3 = 3;
+//	required int64 f4 = 4;
+//	required bool f5 = 5;
+//	required string f6 = 6;
+}

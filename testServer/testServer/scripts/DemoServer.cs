@@ -3,11 +3,14 @@
 using System;
 using System.Collections;
 using System.Diagnostics;
+using System.Globalization;
+using System.IO;
 using System.Threading;
 using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
-using Google.ProtocolBuffers;
+
+using ProtoBuf;
 //using SimpleJSON;
 
 namespace ChuMeng
@@ -15,9 +18,15 @@ namespace ChuMeng
 	public class MyCon {
 		public Socket connect;
 		public bool isClose = false;
+	    public int num = 1;
 		public MyCon(Socket s) {
 			connect = s;
 		}
+
+	    public void setNum(int pnum)
+	    {
+	        num = pnum;
+	    }
 	}
 
 	public class ServerThread {
@@ -63,33 +72,42 @@ namespace ChuMeng
 
 		MyCon con;
 		Socket socket;
-		ChuMeng.ServerMsgReader msgReader = new ServerMsgReader();
 
 		List<byte[]> msgBuffer = new List<byte[]>();
+        List<MyCon> UserList = new List<MyCon>();
+
+        private MemoryStream _readBuffer;
+
 		public ServerThread() {
+
 			socket = new Socket (AddressFamily.InterNetwork, SocketType.Stream, ProtocolType.Tcp);
-			//socket.SetSocketOption (System.Net.Sockets.SocketOptionLevel.Socket, SocketOptionName.ReceiveBuffer, );
+
+
 			socket.SetSocketOption (System.Net.Sockets.SocketOptionLevel.Socket, SocketOptionName.ReuseAddress, true);
 			IPEndPoint ip = new IPEndPoint (IPAddress.Parse("127.0.0.1"), 20000);
 
 			socket.Bind (ip);
 			socket.Listen (1);
 
-			msgReader.msgHandle = handleMsg;
+            _readBuffer = new MemoryStream();
+
 		}
-		void sendPacket(IBuilderLite retpb, uint flowId) {
-			var bytes = ServerBundle.sendImmediate(retpb, flowId);
-			//Debug.Log ("DemoServer: Send Packet "+flowId);
-			lock (msgBuffer) {
-				msgBuffer.Add(bytes);
-			}
-		}
-		void handleMsg(KBEngine.Packet packet) {
-			var receivePkg = packet.protoBody.GetType ().FullName;
-			//Debug.Log ("Server Receive "+receivePkg);
-			var className = receivePkg.Split(char.Parse("."))[1];
-			IBuilderLite retPb = null;
-			uint flowId = packet.flowId;
+
+
+
+        //void sendPacket(IBuilderLite retpb, uint flowId) {
+        //    var bytes = ServerBundle.sendImmediate(retpb, flowId);
+        //    //Debug.Log ("DemoServer: Send Packet "+flowId);
+        //    lock (msgBuffer) {
+        //        msgBuffer.Add(bytes);
+        //    }
+        //}
+        //void handleMsg(KBEngine.Packet packet) {
+        //    var receivePkg = packet.protoBody.GetType ().FullName;
+        //    //Debug.Log ("Server Receive "+receivePkg);
+        //    var className = receivePkg.Split(char.Parse("."))[1];
+        //    IBuilderLite retPb = null;
+        //    uint flowId = packet.flowId;
 /*
 			if (className == "CGAutoRegisterAccount") {
 				var au = GCAutoRegisterAccount.CreateBuilder ();
@@ -300,12 +318,12 @@ namespace ChuMeng
 				retPb = au;
 			}*/
 
-			if (retPb != null) {
-				sendPacket (retPb, flowId);
-			} else {
-				//Debug.LogError("DemoServer::not Handle Message "+className);
-			}
-		}
+        //    if (retPb != null) {
+        //        sendPacket (retPb, flowId);
+        //    } else {
+        //        //Debug.LogError("DemoServer::not Handle Message "+className);
+        //    }
+        //}
 
 		void SendThread() {
 			bool conOK = true;
@@ -324,54 +342,84 @@ namespace ChuMeng
 	    {
             while (true)
             {
-                Console.WriteLine("ReceiveThread");
+                
+
                 MyCon con = (MyCon)pobj;
-                byte[] buffer = new byte[1024];
-                int num = con.connect.Receive(buffer);
-                Console.WriteLine("ss:" + num);
-                if (num > 0)
+
+                Console.WriteLine("ReceiveThread:" + con.num);
+            
+                if (!con.connect.Connected)
                 {
-                    Console.WriteLine("receive" + buffer);
-                    //buffer = new byte[1024];
-                    msgReader.process(buffer, (uint)num);
+                    break;
                 }
+
+                try
+                {
+                    int num = con.connect.Available;
+                    byte[] buffer = new byte[num];
+                    con.connect.Receive(buffer);
+                    if (num > 0)
+                    {
+                        Console.WriteLine("ss:" + num);
+
+                        string str = String.Empty;;
+                        foreach (byte b in buffer)
+                        {
+                            str += b.ToString() + ":";
+                        }
+                        Console.WriteLine(str);
+
+                        if (num > 0)
+                        {
+                            //把数据写入流中
+                            //处理包数据
+                            _readBuffer.Write(buffer, 0, num);
+                        }
+                    }
+
+                }
+                catch(Exception e)
+                {                    
+                   Console.WriteLine("receive error" + e.Message);
+                   break;
+                }
+                Thread.Sleep(100);
             }
 	    }
 
+
+
+
 	    public void run() {
-			//Debug.Log ("Start Demo Server");
             Console.WriteLine("Start Demo Server");
-			byte[] buffer = new byte[1024];
+
 			while (true) {
-                //Console.WriteLine("sendThread");
-				var connect = socket.Accept();
-				con = new MyCon(connect);
-			    var receiveThread = new Thread(new ParameterizedThreadStart(ReceiveThread));
-                receiveThread.Start(con);
 
-			    //var sendThread = new Thread(new ThreadStart(SendThread));
-			    //sendThread.Start();
+			    Socket newSocket = null;
+			    try
+			    {
+			        newSocket = socket.Accept();
+			    }
+			    catch
+			    {
+			        
+			        break;
+			    }
 
-			    //lock (msgBuffer) {
-			    //    msgBuffer.Clear();
-			    //}
+                //为连接的客户建立接收线程
+                ParameterizedThreadStart pts = new ParameterizedThreadStart(ReceiveThread);
+                Thread threadReceive = new Thread(pts);
+                MyCon newCon = new MyCon(newSocket);
+                threadReceive.Start(newCon);
+                newCon.setNum(UserList.Count+1);
 
-			    //while (true)
-			    //{
-			    //    Console.WriteLine("ReadThread");
-			    //    int num = connect.Receive(buffer);
-			    //    if (num > 0)
-			    //    {
-			    //        msgReader.process(buffer, (uint)num);
-			    //    }
-			    //    else
-			    //    {
+                UserList.Add(newCon);
 
-			    //    }
-			    //}
 			}
-
 		}
+
+
+
 	}
 
 	public class DemoServer

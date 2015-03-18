@@ -89,7 +89,7 @@ public class ClientApp : UnityEngine.MonoBehaviour {
 	}
 
 	void Update() {
-		KBEUpdate ();
+		//KBEUpdate ();
 	}
 
 	//处理网络数据
