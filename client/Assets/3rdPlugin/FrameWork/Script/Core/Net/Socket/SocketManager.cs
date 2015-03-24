@@ -36,7 +36,7 @@ namespace Net
         public void SetUp(string ip,int port) 
         {
             InitEvent();
-            socket = new ByteSocket(true);
+            socket = new ByteSocket(false);
             socket.Connect(ip, port);
         }
 

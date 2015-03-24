@@ -25,9 +25,15 @@ namespace Net
 		{
             _writer = new EndianBinaryWriter(EndianBitConverter.Big, this);
             _writer.Write(HEADER); //2
-            _writer.Write((short)0x00); //4
-            _writer.Write((short)0x00);//4
-            _writer.Write((short)code);	//协议号 4
+            _writer.Write((short)0x00); //2
+            _writer.Write((short)0x00);//2
+            _writer.Write((short)code);	//协议号 2
+
+            //if (toId == 0) toId = clientId;
+            //_writer.Write(toId); //4
+            //_writer.Write(extend1); //4
+            //_writer.Write(extend2);//4
+
 			_code = code;
 			_checksum = 0;
         }

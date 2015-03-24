@@ -7,7 +7,7 @@ namespace Net
 {
     public class PackageIn:MemoryStream
     {
-        public  const long HEADER_SIZE = 20;
+        public  const long HEADER_SIZE = 8;
 
         private int _len;
 

@@ -72,6 +72,7 @@
     <Compile Include="scripts\network\SocketManager.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="scripts\proto\ProtoType.cs" />
     <Compile Include="scripts\proto\TestMsg.cs" />
   </ItemGroup>
   <ItemGroup>

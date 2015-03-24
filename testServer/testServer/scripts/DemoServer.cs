@@ -10,6 +10,10 @@ using System.Net;
 using System.Net.Sockets;
 using System.Collections.Generic;
 
+using com.Cotg.net.msg;
+using Cotg.Proto.Const;
+using IO;
+using Net;
 using ProtoBuf;
 //using SimpleJSON;
 
@@ -77,6 +81,17 @@ namespace ChuMeng
         List<MyCon> UserList = new List<MyCon>();
 
         private MemoryStream _readBuffer;
+        private int _readOffset;//读的偏移
+        private int _writeOffset;//写的偏移
+        private bool _encrypted;//是否加密
+
+        private byte[] KEY = new byte[] { 0xae, 0xbf, 0x56, 0x78, 0xab, 0xcd, 0xef, 0xf1 }; //加密的KEY
+
+        public static MemoryStream RECEIVE_KEY;//收到的KEY 流
+        public static MemoryStream SEND_KEY;//发送给后端的KEY
+
+        private MemoryStream _headerTemp;
+        private EndianBinaryReader _headerTempReader;
 
 		public ServerThread() {
 
@@ -89,11 +104,32 @@ namespace ChuMeng
 			socket.Bind (ip);
 			socket.Listen (1);
 
-            _readBuffer = new MemoryStream();
+		    _readOffset = 0;
+		    _writeOffset = 0;
+		    _encrypted = false;
 
+            _readBuffer = new MemoryStream();
+            _headerTemp = new MemoryStream();
+            _headerTempReader = new EndianBinaryReader(EndianBitConverter.Big, _headerTemp);
+
+
+            SetKey(KEY);
 		}
 
 
+        /// <summary>
+        /// 设置加密Key
+        /// </summary>
+        public void SetKey(byte[] key)
+        {
+            RECEIVE_KEY = new MemoryStream();
+            SEND_KEY = new MemoryStream();
+            for (int i = 0; i < 8; i++)
+            {
+                RECEIVE_KEY.WriteByte(key[i]);
+                SEND_KEY.WriteByte(key[i]);
+            }
+        }
 
         //void sendPacket(IBuilderLite retpb, uint flowId) {
         //    var bytes = ServerBundle.sendImmediate(retpb, flowId);
@@ -356,24 +392,37 @@ namespace ChuMeng
                 try
                 {
                     int num = con.connect.Available;
-                    byte[] buffer = new byte[num];
-                    con.connect.Receive(buffer);
+
                     if (num > 0)
                     {
+                        byte[] buffer = new byte[num];
+                        con.connect.Receive(buffer);
                         Console.WriteLine("ss:" + num);
+                        string str = String.Empty;
 
-                        string str = String.Empty;;
                         foreach (byte b in buffer)
                         {
                             str += b.ToString() + ":";
                         }
                         Console.WriteLine(str);
 
+                        
                         if (num > 0)
                         {
                             //把数据写入流中
                             //处理包数据
                             _readBuffer.Write(buffer, 0, num);
+                            _writeOffset += num;
+                            
+                            if (_writeOffset > 1)
+                            {
+                                _readOffset = 0;
+                                if (num >= PackageIn.HEADER_SIZE)
+                                {
+                                    //解包
+                                    ReadPackage();
+                                }
+                            }
                         }
                     }
 
@@ -386,6 +435,155 @@ namespace ChuMeng
                 Thread.Sleep(100);
             }
 	    }
+
+        #region 解包
+        /// <summary>
+        /// 读包
+        /// </summary>
+        private void ReadPackage()
+        {
+            int dataLeft = _writeOffset - _readOffset;
+            byte[] readByte = _readBuffer.ToArray();
+            do
+            {
+                int len = 0;
+                //解析包长
+                while (_readOffset + 4 < _writeOffset)
+                {
+                    //解析包头
+                    _headerTemp.Position = 0;
+                    _headerTemp.WriteByte(readByte[_readOffset]);
+                    _headerTemp.WriteByte(readByte[_readOffset + 1]);
+                    _headerTemp.WriteByte(readByte[_readOffset + 2]);
+                    _headerTemp.WriteByte(readByte[_readOffset + 3]);
+                    if (_encrypted)
+                    {
+                        _headerTemp = DecrptBytes(_headerTemp, 4, CopyByteArray(RECEIVE_KEY));
+                    }
+                    _headerTemp.Position = 0;
+                    if (_headerTempReader.ReadInt16() == PackageOut.HEADER)
+                    {
+                        //拿到包长
+                        len = _headerTempReader.ReadUInt16();
+                        break;
+                    }
+                    else
+                    {
+                        _readOffset++;
+                    }
+                }
+
+                dataLeft = _writeOffset - _readOffset;
+                if (dataLeft >= len && len != 0)
+                {
+                    _readBuffer.Position = _readOffset;
+                    PackageIn buff = new PackageIn();
+                    if (_encrypted)
+                    {
+                        buff.loadE(readByte, len, RECEIVE_KEY.ToArray());
+                    }
+                    else
+                    {
+                        buff.load(readByte, len);
+                    }
+                    _readOffset += len;
+                    dataLeft = _writeOffset - _readOffset;
+                    HandlePackage(buff);
+                }
+                else
+                {
+                    break;
+                }
+            }
+            while (dataLeft >= PackageIn.HEADER_SIZE);
+
+            _readBuffer.Position = 0;
+            if (dataLeft > 0)
+            {
+                _readBuffer.Write(_readBuffer.ToArray(), _readOffset, dataLeft);
+            }
+            _readOffset = 0;
+            _writeOffset = dataLeft;
+        }
+
+        /// <summary>
+        /// 复制数据流
+        /// </summary>
+        private MemoryStream CopyByteArray(MemoryStream src)
+        {
+            MemoryStream result = new MemoryStream();
+            byte[] bytes = src.ToArray();
+            for (int i = 0; i < src.Length; i++)
+            {
+                result.WriteByte(bytes[i]);
+            }
+            return result;
+        }
+
+        /// <summary>
+        /// 解密
+        /// </summary>
+        /// <param name="srcstream"></param>
+        /// <param name="len"></param>
+        /// <param name="keystream"></param>
+        /// <returns></returns>
+        public MemoryStream DecrptBytes(MemoryStream srcstream, int len, MemoryStream keystream)
+        {
+            int i = 0;
+            byte[] src = srcstream.ToArray();
+            byte[] key = keystream.ToArray();
+            for (i = 0; i < len; i++)
+            {
+                if (i > 0)
+                {
+                    key[i % 8] = (byte)((key[i % 8] + src[i - 1]) ^ i);
+                    srcstream.Position = i;
+                    srcstream.WriteByte((byte)((src[i] - src[i - 1]) ^ key[i % 8]));
+                }
+                else
+                {
+                    srcstream.Position = 0;
+                    srcstream.WriteByte((byte)(src[0] ^ key[0]));
+                }
+            }
+            return srcstream;
+        }
+
+        /// <summary>
+        /// 处理接受到的包
+        /// </summary>
+        /// <param name="pkg"></param>
+        private void HandlePackage(PackageIn pkg)
+        {
+
+
+            //PackageIn pkg = obj[0] as PackageIn;
+            string codeString = pkg.Code.ToString();
+
+            TestMsg msg = pkg.ReadBody<TestMsg>();
+
+            //0x2130 + "";
+            //switch (codeString)
+            //{
+            //    case "":
+
+            //        break;
+            //}
+
+            try
+            {
+                if (pkg.Checksum == pkg.calculateCheckSum())
+                {
+                    pkg.Position = PackageIn.HEADER_SIZE;
+                    //m_PackageQueue.Enqueue(pkg);
+                }
+            }
+            catch (Exception e)
+            {
+                //Debug.LogError("handlePackage" + e.Message);
+            }
+        }
+        #endregion
 
 
 

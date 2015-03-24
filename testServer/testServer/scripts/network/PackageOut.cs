@@ -28,10 +28,6 @@ namespace Net
             _writer.Write((short)0x00); //4
             _writer.Write((short)0x00);//4
             _writer.Write((short)code);	//协议号 4
-			if(toId == 0)toId = clientId;
-            _writer.Write(toId); //4
-            _writer.Write(extend1); //4
-            _writer.Write(extend2);//4
 			_code = code;
 			_checksum = 0;
         }
@@ -63,19 +59,6 @@ namespace Net
 			
 			return (short)((val1) & 0x7F7F);
 		}
-		
-       /*
-		public function writeDate(date:Date):void
-		{
-			writeShort(date.getFullYear());
-			writeByte(date.month+1);
-			writeByte(date.day);
-			writeByte(date.hours);
-			writeByte(date.minutes);
-			writeByte(date.seconds);
-		}
-        * */
-
     }
 
    

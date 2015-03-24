@@ -8,7 +8,7 @@
 //------------------------------------------------------------------------------
 
 // Generated from: OnlyTestMsg.proto
-namespace com.road.pitaya.proto
+namespace com.Cotg.net.msg
 {
   [global::System.Serializable, global::ProtoBuf.ProtoContract(Name=@"TestMsg")]
   public partial class TestMsg : global::ProtoBuf.IExtensible
@@ -21,6 +21,41 @@ namespace com.road.pitaya.proto
     {
       get { return _f1; }
       set { _f1 = value; }
+    }
+    private float _f2;
+    [global::ProtoBuf.ProtoMember(2, IsRequired = true, Name=@"f2", DataFormat = global::ProtoBuf.DataFormat.FixedSize)]
+    public float f2
+    {
+      get { return _f2; }
+      set { _f2 = value; }
+    }
+    private double _f3;
+    [global::ProtoBuf.ProtoMember(3, IsRequired = true, Name=@"f3", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public double f3
+    {
+      get { return _f3; }
+      set { _f3 = value; }
+    }
+    private long _f4;
+    [global::ProtoBuf.ProtoMember(4, IsRequired = true, Name=@"f4", DataFormat = global::ProtoBuf.DataFormat.TwosComplement)]
+    public long f4
+    {
+      get { return _f4; }
+      set { _f4 = value; }
+    }
+    private bool _f5;
+    [global::ProtoBuf.ProtoMember(5, IsRequired = true, Name=@"f5", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public bool f5
+    {
+      get { return _f5; }
+      set { _f5 = value; }
+    }
+    private string _f6;
+    [global::ProtoBuf.ProtoMember(6, IsRequired = true, Name=@"f6", DataFormat = global::ProtoBuf.DataFormat.Default)]
+    public string f6
+    {
+      get { return _f6; }
+      set { _f6 = value; }
     }
     private global::ProtoBuf.IExtension extensionObject;
     global::ProtoBuf.IExtension global::ProtoBuf.IExtensible.GetExtensionObject(bool createIfMissing)
