@@ -8,8 +8,14 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
+using System.Runtime.InteropServices;
+
+using MySql.Data.MySqlClient;
+
+
 namespace HttpServer
 {
+
     public class HttpProcessor
     {
         public TcpClient socket;
@@ -47,6 +53,7 @@ namespace HttpServer
             }
             return data;
         }
+
         public void process()
         {
             // we can't use a StreamReader for input, because it buffers up extra data on us inside it's
@@ -189,7 +196,6 @@ namespace HttpServer
             //outputStream.WriteLine("<html><body><h1>test server</h1>");
             //outputStream.WriteLine("Current Time: " + DateTime.Now.ToString());
             //outputStream.WriteLine("url : {0}", http_url);
-
             //outputStream.WriteLine("<form method=post action=/form>");
             //outputStream.WriteLine("<input type=text name=foo value=foovalue>");
             //outputStream.WriteLine("<input type=submit name=bar value=barvalue>");
@@ -197,8 +203,7 @@ namespace HttpServer
             //outputStream.
             string fileData = " ";
 
-            //读取文件
-        
+            //读取文件        
             if (File.Exists( http_url.Substring(1)))
             {
                 using (StreamReader sr = File.OpenText( http_url.Substring(1))) 
@@ -211,7 +216,8 @@ namespace HttpServer
             {
                 outputStream.WriteLine("");
             }
-         
+
+            testMySql();
         }
 
         public void writeFailure()
@@ -219,6 +225,20 @@ namespace HttpServer
             outputStream.WriteLine("HTTP/1.0 404 File not found");
             outputStream.WriteLine("Connection: close");
             outputStream.WriteLine("");
+        }
+
+        public void testMySql() 
+        {
+            string constr = "server=localhost;User Id=root;password=shulu;Database=reg";
+            MySqlConnection mycon = new MySqlConnection(constr);
+            mycon.Open();
+            MySqlCommand mycmd = new MySqlCommand("insert into buyer(name,password,email) values('xiaowang','dikd3939','1134384387@qq.com')", mycon);
+            if (mycmd.ExecuteNonQuery() > 0)
+            {
+                Console.WriteLine("成功！");
+            }
+            //Console.ReadLine();
+            mycon.Close();
         }
     }
 }
