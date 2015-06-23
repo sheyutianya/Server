@@ -1,0 +1,18 @@
+<root>
+	<cfg>
+		<id>1</id>
+		<name>serverlist</name>
+		<url>http://127.0.0.1:8080/serverlist.xml</url>
+	</cfg>
+	<cfg>
+		<id>2</id>
+		<name>version</name>
+		<url>http://127.0.0.1:8080/version.xml</url>
+	</cfg>
+	<cfg>
+		<id>3</id>
+		<name>NoticeData</name>
+		<url>http://127.0.0.1:8080/notice.xml</url>
+	</cfg>
+</root>
+	

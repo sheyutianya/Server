@@ -1,0 +1,12 @@
+<root>
+<cfg>
+<id>1</id>
+<name>serverlist</name>
+<url>http://192.168.1.100/serverlist.xml</url>
+</cfg>
+<cfg>
+<id>2</id>
+<name>version</name>
+<url>http://192.168.1.100/version.xml</url>
+</cfg>
+</root>

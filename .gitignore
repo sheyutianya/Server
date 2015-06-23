@@ -33,7 +33,9 @@ Thumbs.db
 *.sbr
 *.sdf
 
-[Bb]in
+#[Bb]in
+#*.config
+
 #[Dd]ebug/
 [Dd]ebug.win32/
 

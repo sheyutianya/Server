@@ -1,0 +1,26 @@
+<root>
+	<notice>
+		<id>1</id>
+		<title>你好！</title>
+		<text>你们是来拯救世界的吗？</text>
+		<date>2015.5.30</date>
+		<isnew>1</isnew>
+	</notice>
+	<notice>
+		<id>2</id>
+		<title>去死</title>
+		<text>你们的世界我根本不懂！</text>
+		<date>2015.5.30</date>
+		<isnew>1</isnew>
+	</notice>
+		<notice>
+		<id>3</id>
+		<title>逗比</title>
+		<text>
+		那你们是来干嘛的，逗比吗？
+		文本[ff0000]带[-][00ff00]颜[-][0000ff]色[-].
+		</text>
+		<date>2015.5.30</date>
+		<isnew>1</isnew>
+	</notice>
+</root>

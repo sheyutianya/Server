@@ -217,7 +217,7 @@ namespace HttpServer
                 outputStream.WriteLine("");
             }
 
-            testMySql();
+            //testMySql();
         }
 
         public void writeFailure()
