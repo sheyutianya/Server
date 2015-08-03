@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<ItemFragment>
+		<id_i>2000110</id_i>
+		<name_i>5</name_i>
+		<itemType_i>5</itemType_i>
+		<type_i>1</type_i>
+		<icon_i>101</icon_i>
+		<model_i>-1</model_i>
+		<superposition_i>99</superposition_i>
+		<level_i>1</level_i>
+		<price_i>500</price_i>
+		<effectDescription_i>-1</effectDescription_i>
+		<description_i>-1</description_i>
+		<consumptionQuantity_i>10</consumptionQuantity_i>
+		<consumptionGold_i>5000</consumptionGold_i>
+		<synthesisID_i>1411021</synthesisID_i>
+	</ItemFragment>
+</root>

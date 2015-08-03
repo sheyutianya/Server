@@ -61,7 +61,7 @@ namespace HttpServer
             inputStream = new BufferedStream(socket.GetStream());
 
             // we probably shouldn't be using a streamwriter for all output from handlers either
-            outputStream = new StreamWriter(new BufferedStream(socket.GetStream()));
+            outputStream = new StreamWriter(new BufferedStream(socket.GetStream()), encoding: Encoding.GetEncoding("GB2312"));
             try
             {
                 parseRequest();
@@ -210,6 +210,11 @@ namespace HttpServer
                 {
                     fileData = sr.ReadToEnd();
                 }
+                //StreamReader sr = File.OpenText(http_url.Substring(1));
+
+                //using (StreamReader sr = File.OpenText(http_url.Substring(1)))
+                //    return sr.ReadToEnd();
+
                 outputStream.Write(fileData);
             }
             else
@@ -229,10 +234,10 @@ namespace HttpServer
 
         public void testMySql() 
         {
-            string constr = "server=localhost;User Id=root;password=shulu;Database=reg";
+            string constr = "server=localhost;User Id=root;password=shulu;Database=world";
             MySqlConnection mycon = new MySqlConnection(constr);
             mycon.Open();
-            MySqlCommand mycmd = new MySqlCommand("insert into buyer(name,password,email) values('xiaowang','dikd3939','1134384387@qq.com')", mycon);
+            MySqlCommand mycmd = new MySqlCommand("insert into city(ID,Name,CountryCode,District,Population) values(10001001 , 'xiaowang','339','aril',60000)", mycon);
             if (mycmd.ExecuteNonQuery() > 0)
             {
                 Console.WriteLine("成功！");

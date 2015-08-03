@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<root xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<record>
+		<id>4</id>
+		<path>se_temple.mp3</path>
+	</record>
+	<record>
+		<id>6</id>
+		<path>se_click.mp3</path>
+	</record>
+	<record>
+		<id>7</id>
+		<path>se_open.mp3</path>
+	</record>
+	<record>
+		<id>8</id>
+		<path>se_close.mp3</path>
+	</record>
+	<record>
+		<id>9</id>
+		<path>se_instance.mp3</path>
+	</record>
+	<record>
+		<id>10</id>
+		<path>se_worn equipment.mp3</path>
+	</record>
+	<record>
+		<id>11</id>
+		<path>se_decomposition equipment.mp3</path>
+	</record>
+	<record>
+		<id>12</id>
+		<path>se_dialog.mp3</path>
+	</record>
+	<record>
+		<id>13</id>
+		<path>se_enchanter hit.mp3</path>
+	</record>
+	<record>
+		<id>14</id>
+		<path>se_enchanter run.mp3</path>
+	</record>
+	<record>
+		<id>15</id>
+		<path>se_bowman run.mp3</path>
+	</record>
+	<record>
+		<id>17</id>
+		<path>se_win.mp3</path>
+	</record>
+	<record>
+		<id>18</id>
+		<path>se_lose.mp3</path>
+	</record>
+	<record>
+		<id>19</id>
+		<path>se_choose role.mp3</path>
+	</record>
+	<record>
+		<id>20</id>
+		<path>se_learn skill.mp3</path>
+	</record>
+	<record>
+		<id>22</id>
+		<path>se_assassin run.mp3</path>
+	</record>
+	<record>
+		<id>23</id>
+		<path>se_assassin hit.mp3</path>
+	</record>
+	<record>
+		<id>24</id>
+		<path>se_login.mp3</path>
+	</record>
+	<record>
+		<id>25</id>
+		<path>se_slipping.mp3</path>
+	</record>
+	<record>
+		<id>26</id>
+		<path>se_strengthen.mp3</path>
+	</record>
+	<record>
+		<id>27</id>
+		<path>se_clean up.mp3</path>
+	</record>
+	<record>
+		<id>28</id>
+		<path>se_synthetic gem.mp3</path>
+	</record>
+	<record>
+		<id>29</id>
+		<path>se_advanced.mp3</path>
+	</record>
+	<record>
+		<id>30</id>
+		<path>se_gem mounting.mp3</path>
+	</record>
+	<record>
+		<id>31</id>
+		<path>se_equipment draconic.mp3</path>
+	</record>
+	<record>
+		<id>32</id>
+		<path>se_attack by gun.mp3</path>
+	</record>
+	<record>
+		<id>33</id>
+		<path>se_open boxes.mp3</path>
+	</record>
+	<record>
+		<id>34</id>
+		<path>se_attack by broadsword.mp3</path>
+	</record>
+	<record>
+		<id>35</id>
+		<path>se_draconic gem.mp3</path>
+	</record>
+	<record>
+		<id>36</id>
+		<path>se_by hitting.mp3</path>
+	</record>
+	<record>
+		<id>37</id>
+		<path>se_benison.mp3</path>
+	</record>
+	<record>
+		<id>38</id>
+		<path>se_attack by arrow.mp3</path>
+	</record>
+	<record>
+		<id>39</id>
+		<path>se_attack by dagger.mp3</path>
+	</record>
+	<record>
+		<id>40</id>
+		<path>se_attack by staff.mp3</path>
+	</record>
+	<record>
+		<id>41</id>
+		<path>se_pick up draconic.mp3</path>
+	</record>
+	<record>
+		<id>42</id>
+		<path>se_holyland.mp3</path>
+	</record>
+	<record>
+		<id>43</id>
+		<path>se_hi.mp3</path>
+	</record>
+	<record>
+		<id>45</id>
+		<path>se_01_login.mp3</path>
+	</record>
+	<record>
+		<id>46</id>
+		<path>se_03_zhandou.mp3</path>
+	</record>
+	<record>
+		<id>47</id>
+		<path>se_05_xuedi.mp3</path>
+	</record>
+	<record>
+		<id>48</id>
+		<path>se_06_huangye.mp3</path>
+	</record>
+	<record>
+		<id>49</id>
+		<path>se_07_dilao.mp3</path>
+	</record>
+	<record>
+		<id>50</id>
+		<path>se_08_rongyan1.mp3</path>
+	</record>
+	<record>
+		<id>51</id>
+		<path>se_09_conglin1.mp3</path>
+	</record>
+	<record>
+		<id>52</id>
+		<path>se_10_conglin2.mp3</path>
+	</record>
+	<record>
+		<id>53</id>
+		<path>se_11_rongyan2.mp3</path>
+	</record>
+	<record>
+		<id>54</id>
+		<path>se_12_zhandou2.mp3</path>
+	</record>
+	<record>
+		<id>55</id>
+		<path>se_13_huangye2.mp3</path>
+	</record>
+	<record>
+		<id>56</id>
+		<path>se_mark.mp3</path>
+	</record>
+	<record>
+		<id>57</id>
+		<path>se_pickcard.mp3</path>
+	</record>
+	<record>
+		<id>58</id>
+		<path>se_rank.mp3</path>
+	</record>
+	<record>
+		<id>59</id>
+		<path>se_win1.mp3</path>
+	</record>
+	<record>
+		<id>101</id>
+		<path>se_gem mounting.mp3</path>
+	</record>
+</root>
